@@ -1,6 +1,6 @@
 # wordle
 
-A Wordle clone — plain HTML/CSS/JS, no build step, no dependencies. Deployable to GitHub Pages as-is.
+A Wordle clone. It is plain HTML/CSS/JS, no build step, no dependencies. Deployable to GitHub Pages.
 
 ## Features
 
@@ -30,8 +30,4 @@ small blocklist of vulgar/offensive terms). Re-run it any time `words.txt` chang
 python3 tools/generate_words.py
 ```
 
-## Deploying to GitHub Pages
-
-1. Push this repo to GitHub.
-2. In repo Settings → Pages, set Source to "Deploy from a branch", Branch `main`, folder `/ (root)`.
-3. No build step or GitHub Actions workflow needed — it's static files served as-is.
+## Deployed to GitHub Pages at tmedha.com/wordle
