@@ -2,7 +2,7 @@ import { MAX_GUESSES, WORD_LENGTH, evaluateGuess, computeKeyboardStatuses, creat
 import { pickNextWord, isValidWord } from "./wordbank.js";
 import { getStats, setStats, getActiveGame, setActiveGame, clearActiveGame } from "./state.js";
 import { GameTimer } from "./timer.js";
-import { buildKeyboard, attachPhysicalKeyboard, updateKeyboardStatuses } from "./keyboard.js";
+import { buildKeyboard, attachKeyboardClicks, attachPhysicalKeyboard, updateKeyboardStatuses } from "./keyboard.js";
 import {
   renderBoard,
   shakeRow,
@@ -78,7 +78,7 @@ function startNewGame(mode) {
   game = createGameState(mode, answer);
   persist();
   showGameScreen();
-  buildKeyboard(el.keyboard, handleKey);
+  buildKeyboard(el.keyboard);
   render();
 
   if (mode === "timed") {
@@ -102,7 +102,7 @@ function startTimer() {
 function resumeGame(active) {
   game = active;
   showGameScreen();
-  buildKeyboard(el.keyboard, handleKey);
+  buildKeyboard(el.keyboard);
   render();
 
   if (game.mode === "timed") {
@@ -216,7 +216,13 @@ el.newGameBtn.addEventListener("click", () => {
 });
 el.playAgainSameBtn.addEventListener("click", () => startNewGame(game.mode));
 el.playAgainSwitchBtn.addEventListener("click", () => startNewGame(otherMode(game.mode)));
+el.endOverlay.addEventListener("click", (e) => {
+  if (e.target === el.endOverlay) {
+    el.endOverlay.hidden = true;
+  }
+});
 
+attachKeyboardClicks(el.keyboard, handleKey);
 attachPhysicalKeyboard(handleKey);
 
 const active = getActiveGame();

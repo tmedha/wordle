@@ -4,7 +4,7 @@ const KEY_ROWS = [
   ["enter", "z", "x", "c", "v", "b", "n", "m", "backspace"],
 ];
 
-export function buildKeyboard(container, onKey) {
+export function buildKeyboard(container) {
   container.innerHTML = "";
   for (const row of KEY_ROWS) {
     const rowEl = document.createElement("div");
@@ -18,7 +18,16 @@ export function buildKeyboard(container, onKey) {
     }
     container.appendChild(rowEl);
   }
+}
 
+/**
+ * Attaches the click-delegation listener once. `buildKeyboard` re-renders the
+ * container's contents every game (innerHTML replacement), but that never
+ * removes listeners bound to the container itself — so this must be called
+ * exactly once per container, not on every rebuild, or clicks fire N times
+ * after N rebuilds.
+ */
+export function attachKeyboardClicks(container, onKey) {
   container.addEventListener("click", (e) => {
     const btn = e.target.closest("button[data-key]");
     if (!btn) return;
