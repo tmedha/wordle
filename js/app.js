@@ -27,6 +27,7 @@ const el = {
   endOverlay: document.getElementById("end-overlay"),
   endTitle: document.getElementById("end-title"),
   endWord: document.getElementById("end-word"),
+  endWordLink: document.getElementById("end-word-link"),
   endStats: document.getElementById("end-stats"),
   playAgainSameBtn: document.getElementById("play-again-same-btn"),
   playAgainSwitchBtn: document.getElementById("play-again-switch-btn"),
@@ -147,7 +148,9 @@ function endGame(won) {
   render();
 
   el.endTitle.textContent = won ? "You won!" : "Out of guesses";
-  el.endWord.textContent = won ? "" : `The word was ${game.answer}`;
+  el.endWord.textContent = `The word was ${game.answer}`;
+  el.endWordLink.textContent = "See definition";
+  el.endWordLink.href = `https://en.wiktionary.org/wiki/${game.answer.toLowerCase()}`;
   renderStatsSummary(el.endStats, getStats(game.mode), game.mode);
 
   el.playAgainSameBtn.innerHTML = `<span class="mode-btn-title">Play Again</span><span class="mode-btn-sub">${
